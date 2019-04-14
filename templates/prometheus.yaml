@@ -45,14 +45,6 @@ objects:
     annotations:
       serviceaccounts.openshift.io/oauth-redirectreference.prom: '{"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"prometheus"}}'
       serviceaccounts.openshift.io/oauth-redirectreference.alerts: '{"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"alerts"}}'
-- apiVersion: authorization.openshift.io/v1
-  kind: RoleBinding
-  metadata:
-    labels:
-      app: prometheus
-    name: prometheus-viewer
-  roleRef:
-    name: view 
   subjects:
   - kind: ServiceAccount
     name: prometheus
@@ -99,6 +91,18 @@ objects:
     - namespaces
     verbs:
     - get
+  - apiGroups:
+    - ""
+    attributeRestrictions: null
+    resources:
+    - endpoints
+    - nodes
+    - pods
+    - services
+    verbs:
+    - get
+    - list
+    - watch
 - apiVersion: authorization.openshift.io/v1
   groupNames: null
   kind: ClusterRoleBinding

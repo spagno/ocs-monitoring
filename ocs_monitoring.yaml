@@ -1,0 +1,82 @@
+---
+- name: Create EP and SVC for external gluster
+  hosts: glusterfs,glusterfs_registry
+  tasks:
+    - name: Create temp dir
+      delegate_to: 127.0.0.1
+      command: mktemp -d /tmp/ocs-monitoring-XXXXXX
+      run_once: true
+      register: mktemp
+      changed_when: false
+
+    - name: Create EP templates
+      delegate_to: 127.0.0.1
+      template:
+        src: ep.j2
+        dest: "{{ mktemp.stdout }}/{{ ansible_nodename.split('.')[0] | lower }}_ep.yaml"
+    
+    - name: Create EP gluster templates
+      delegate_to: 127.0.0.1
+      template:
+        src: ep_gluster.j2
+        dest: "{{ mktemp.stdout }}/{{ ansible_nodename.split('.')[0] | lower }}_gluster_ep.yaml"
+
+    - name: Create SVC templates
+      delegate_to: 127.0.0.1
+      template:
+        src: svc.j2
+        dest: "{{ mktemp.stdout }}/{{ ansible_nodename.split('.')[0] | lower }}_svc.yaml"
+
+    - name: Create SVC gluster templates
+      delegate_to: 127.0.0.1
+      template:
+        src: svc_gluster.j2
+        dest: "{{ mktemp.stdout }}/{{ ansible_nodename.split('.')[0] | lower }}_gluster_svc.yaml"
+
+    - name: Create SVC for App
+      delegate_to: 127.0.0.1
+      command: oc create -f "{{ mktemp.stdout }}/{{ ansible_nodename.split('.')[0] | lower }}_svc.yaml" -n "{{ openshift_storage_glusterfs_namespace }}"
+      when: groups['glusterfs'] is defined and ansible_nodename in groups['glusterfs']
+   
+    - name: Create EP for App
+      delegate_to: 127.0.0.1
+      command: oc create -f "{{ mktemp.stdout }}/{{ ansible_nodename.split('.')[0] | lower }}_ep.yaml" -n "{{ openshift_storage_glusterfs_namespace }}"
+      when: groups['glusterfs'] is defined and ansible_nodename in groups['glusterfs']
+
+    - name: Create SVC for Infra
+      delegate_to: 127.0.0.1
+      command: oc create -f "{{ mktemp.stdout }}/{{ ansible_nodename.split('.')[0] | lower }}_svc.yaml" -n "{{ openshift_storage_glusterfs_registry_namespace }}"
+      when: groups['glusterfs_registry'] is defined and ansible_nodename in groups['glusterfs_registry']
+    
+    - name: Create EP for Infra
+      delegate_to: 127.0.0.1
+      command: oc create -f "{{ mktemp.stdout }}/{{ ansible_nodename.split('.')[0] | lower }}_ep.yaml" -n "{{ openshift_storage_glusterfs_registry_namespace }}"
+      when: groups['glusterfs_registry'] is defined and ansible_nodename in groups['glusterfs_registry']
+
+    - name: Create SVC gluster for App
+      delegate_to: 127.0.0.1
+      command: oc create -f "{{ mktemp.stdout }}/{{ ansible_nodename.split('.')[0] | lower }}_gluster_svc.yaml" -n "{{ openshift_storage_glusterfs_namespace }}"
+      when: groups['glusterfs'] is defined and ansible_nodename in groups['glusterfs']
+   
+    - name: Create EP gluster for App
+      delegate_to: 127.0.0.1
+      command: oc create -f "{{ mktemp.stdout }}/{{ ansible_nodename.split('.')[0] | lower }}_gluster_ep.yaml" -n "{{ openshift_storage_glusterfs_namespace }}"
+      when: groups['glusterfs'] is defined and ansible_nodename in groups['glusterfs']
+
+    - name: Create SVC gluster for Infra
+      delegate_to: 127.0.0.1
+      command: oc create -f "{{ mktemp.stdout }}/{{ ansible_nodename.split('.')[0] | lower }}_gluster_svc.yaml" -n "{{ openshift_storage_glusterfs_registry_namespace }}"
+      when: groups['glusterfs_registry'] is defined and ansible_nodename in groups['glusterfs_registry']
+    
+    - name: Create EP gluster for Infra
+      delegate_to: 127.0.0.1
+      command: oc create -f "{{ mktemp.stdout }}/{{ ansible_nodename.split('.')[0] | lower }}_gluster_ep.yaml" -n "{{ openshift_storage_glusterfs_registry_namespace }}"
+      when: groups['glusterfs_registry'] is defined and ansible_nodename in groups['glusterfs_registry']
+
+    - name: Delete temp directory
+      delegate_to: 127.0.0.1
+      run_once: true
+      file:
+        name: "{{ mktemp.stdout }}"
+        state: absent
+      changed_when: false
