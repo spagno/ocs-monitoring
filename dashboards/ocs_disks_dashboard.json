@@ -1,4 +1,34 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "6.2.5"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -16,8 +46,8 @@
   "editable": true,
   "gnetId": 3011,
   "graphTooltip": 0,
-  "id": 8,
-  "iteration": 1555215224384,
+  "id": null,
+  "iteration": 1564415265055,
   "links": [],
   "panels": [
     {
@@ -25,7 +55,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "decimals": 1,
       "fill": 1,
       "gridPos": {
@@ -52,6 +82,7 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {},
       "percentage": false,
       "pointradius": 1,
       "points": false,
@@ -117,7 +148,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "decimals": 1,
       "fill": 1,
       "gridPos": {
@@ -144,6 +175,7 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {},
       "percentage": false,
       "pointradius": 1,
       "points": false,
@@ -209,7 +241,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "decimals": 0,
       "fill": 1,
       "gridPos": {
@@ -236,6 +268,7 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {},
       "percentage": false,
       "pointradius": 1,
       "points": false,
@@ -301,7 +334,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "decimals": 0,
       "fill": 1,
       "gridPos": {
@@ -328,6 +361,7 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {},
       "percentage": false,
       "pointradius": 1,
       "points": false,
@@ -393,7 +427,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "decimals": 1,
       "fill": 1,
       "gridPos": {
@@ -420,6 +454,7 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {},
       "percentage": false,
       "pointradius": 1,
       "points": false,
@@ -485,7 +520,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "decimals": 1,
       "fill": 1,
       "gridPos": {
@@ -512,6 +547,7 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {},
       "percentage": false,
       "pointradius": 1,
       "points": false,
@@ -577,7 +613,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "decimals": 1,
       "fill": 1,
       "gridPos": {
@@ -604,6 +640,7 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {},
       "percentage": false,
       "pointradius": 1,
       "points": false,
@@ -669,7 +706,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "decimals": 1,
       "fill": 1,
       "gridPos": {
@@ -696,6 +733,7 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {},
       "percentage": false,
       "pointradius": 1,
       "points": false,
@@ -757,7 +795,7 @@
       }
     }
   ],
-  "refresh": "5m",
+  "refresh": "5s",
   "schemaVersion": 18,
   "style": "dark",
   "tags": [
@@ -769,11 +807,8 @@
     "list": [
       {
         "allValue": null,
-        "current": {
-          "text": "gluster03",
-          "value": "gluster03"
-        },
-        "datasource": "prometheus",
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
         "definition": "",
         "hide": 0,
         "includeAll": false,
@@ -794,11 +829,8 @@
       },
       {
         "allValue": null,
-        "current": {
-          "text": "9100",
-          "value": "9100"
-        },
-        "datasource": "prometheus",
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
         "definition": "",
         "hide": 2,
         "includeAll": false,
@@ -846,5 +878,5 @@
   "timezone": "browser",
   "title": "OCS - Disks",
   "uid": "000000005",
-  "version": 4
+  "version": 2
 }
