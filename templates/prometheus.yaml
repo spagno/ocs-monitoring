@@ -650,3 +650,62 @@ objects:
           target_label: endpoint
           replacement: http
           action: replace
+      - job_name: node_exporter
+        scrape_interval: 30s
+        scrape_timeout: 10s
+        metrics_path: /metrics
+        scheme: http
+        kubernetes_sd_configs:
+        - api_server: null
+          role: endpoints
+          namespaces:
+            names:
+            - ${HEKETI_APP_NAMESPACE}
+            - ${HEKETI_INFRA_NAMESPACE}
+        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        relabel_configs:
+        - source_labels: [__meta_kubernetes_service_label_k8s_app]
+          separator: ;
+          regex: node_exporter
+          replacement: $1
+          action: keep
+        - source_labels: [__meta_kubernetes_endpoint_port_name]
+          separator: ;
+          regex: node-exporter
+          replacement: $1
+          action: keep
+        - source_labels: [__meta_kubernetes_namespace]
+          separator: ;
+          regex: (.*)
+          target_label: namespace
+          replacement: $1
+          action: replace
+        - source_labels: [__meta_kubernetes_pod_name]
+          separator: ;
+          regex: (.*)
+          target_label: pod
+          replacement: $1
+          action: replace
+        - source_labels: [__meta_kubernetes_service_name]
+          separator: ;
+          regex: (.*)
+          target_label: service
+          replacement: $1
+          action: replace
+        - source_labels: [__meta_kubernetes_service_name]
+          separator: ;
+          regex: (.*)
+          target_label: job
+          replacement: ${1}
+          action: replace
+        - source_labels: [__meta_kubernetes_service_label_k8s_app]
+          separator: ;
+          regex: (.+)
+          target_label: job
+          replacement: ${1}
+          action: replace
+        - separator: ;
+          regex: (.*)
+          target_label: endpoint
+          replacement: http
+          action: replace
