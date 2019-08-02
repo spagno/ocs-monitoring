@@ -20,16 +20,23 @@ edit the namespace adding `openshift.io/node-selector: ""` to let the statefulse
 
 install prometheus from the template
 
-    oc new-app -f templates/prometheus.yaml -p NAMESPACE=rhgs-metrics -p HEKETI_APP_NAMESPACE=rhgs-app -p HEKETI_INFRA_NAMESPACE=rhgs-infra
+    oc new-app -f templates/prometheus.yaml -p NAMESPACE=rhgs-metrics -p HEKETI_APP_NAMESPACE=rhgs-app -p HEKETI_INFRA_NAMESPACE=rhgs-infra -p PROMETHEUS_STORAGE_CLASS=glusterfs-registry-block
 
 or
+    
     oc new-app -f templates/prometheus.yaml -p NAMESPACE=rhgs-metrics -p HEKETI_APP_NAMESPACE=rhgs
 
 if you didn't install the glusterfs-registry
 
 install grafana from the template
 
+    oc new-app -f templates/grafana.yaml -p NAMESPACE=rhgs-metrics -p GRAFANA_STORAGE_CLASS=glusterfs-registry
+
+or 
+
     oc new-app -f templates/grafana.yaml -p NAMESPACE=rhgs-metrics
+
+if you didn't install the glusterfs-registry
 
 launch the playbook using the ocp inventory to create the svc and the ep
 

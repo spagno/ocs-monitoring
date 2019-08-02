@@ -33,6 +33,12 @@ parameters:
 - description: The namespace for OCS App
   name: HEKETI_APP_NAMESPACE
   value: rhgs-app
+- description: The storageclass used for Prometheus
+  name: PROMETHEUS_STORAGE_CLASS
+  value: glusterfs-storage-block
+- description: The pvc size for Prometheus
+  name: PROMETHEUS_PVC_SIZE
+  value: 20Gi
 objects:
 # Authorize the prometheus service account to read data about the cluster
 - apiVersion: v1
@@ -191,10 +197,6 @@ objects:
         - name: prom-proxy
           image: ${IMAGE_PROXY}
           imagePullPolicy: IfNotPresent
-          resources:
-            limits:
-              cpu: "100m" 
-              memory: "200Mi" 
           ports:
           - containerPort: 8443
             name: web
@@ -222,10 +224,6 @@ objects:
             name: prometheus-data
 
         - name: prometheus
-          resources:
-            limits:
-              cpu: "400m" 
-              memory: "1024Mi"
           ports:
           - containerPort: 9090
             name: prometheus
@@ -264,8 +262,8 @@ objects:
         - ReadWriteOnce
         resources:
           requests:
-            storage: 20Gi
-        storageClassName: glusterfs-registry-block
+            storage: "${PROMETHEUS_PVC_SIZE}"
+        storageClassName: "${PROMETHEUS_STORAGE_CLASS}"
 
 - apiVersion: v1
   kind: ConfigMap
