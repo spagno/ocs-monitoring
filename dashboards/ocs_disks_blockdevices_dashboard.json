@@ -7,6 +7,13 @@
       "type": "datasource",
       "pluginId": "prometheus",
       "pluginName": "Prometheus"
+    },
+    {
+      "name": "VAR_PORT",
+      "type": "constant",
+      "label": "port",
+      "value": "9100",
+      "description": ""
     }
   ],
   "__requires": [
@@ -14,7 +21,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "6.2.5"
+      "version": "6.3.2"
     },
     {
       "type": "panel",
@@ -47,7 +54,7 @@
   "gnetId": 3011,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1564415265055,
+  "iteration": 1565368286320,
   "links": [],
   "panels": [
     {
@@ -58,6 +65,7 @@
       "datasource": "${DS_PROMETHEUS}",
       "decimals": 1,
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 5,
         "w": 24,
@@ -72,7 +80,7 @@
         "hideZero": false,
         "max": true,
         "min": false,
-        "rightSide": true,
+        "rightSide": false,
         "show": true,
         "sideWidth": 250,
         "total": false,
@@ -82,7 +90,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
       "pointradius": 1,
       "points": false,
@@ -93,10 +103,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "irate(node_disk_read_bytes_total{job=\"node_exporter\",instance=~\"$node:$port\"}[5m])",
+          "expr": "irate(node_disk_read_bytes_total{job=\"node-exporter\",instance=~\"$node:$port\",device=\"$dm\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{device}}",
+          "legendFormat": "{{$pvc}} - {{$node}} - {{$dm}}",
           "refId": "A",
           "step": 4,
           "target": ""
@@ -151,6 +161,7 @@
       "datasource": "${DS_PROMETHEUS}",
       "decimals": 1,
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 5,
         "w": 24,
@@ -165,7 +176,7 @@
         "hideZero": false,
         "max": true,
         "min": false,
-        "rightSide": true,
+        "rightSide": false,
         "show": true,
         "sideWidth": 250,
         "total": false,
@@ -175,7 +186,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
       "pointradius": 1,
       "points": false,
@@ -186,10 +199,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "irate(node_disk_written_bytes_total{job=\"node_exporter\",instance=~\"$node:$port\"}[5m])",
+          "expr": "irate(node_disk_written_bytes_total{job=\"node-exporter\",instance=~\"$node:$port\",device=\"$dm\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{device}}",
+          "legendFormat": "{{$pvc}} - {{$node}} - {{$dm}}",
           "refId": "A",
           "step": 4,
           "target": ""
@@ -244,6 +257,7 @@
       "datasource": "${DS_PROMETHEUS}",
       "decimals": 0,
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 5,
         "w": 24,
@@ -258,7 +272,7 @@
         "hideZero": false,
         "max": true,
         "min": false,
-        "rightSide": true,
+        "rightSide": false,
         "show": true,
         "sideWidth": 250,
         "total": false,
@@ -268,7 +282,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
       "pointradius": 1,
       "points": false,
@@ -279,10 +295,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "irate(node_disk_reads_completed_total{job=\"node_exporter\",instance=~\"$node:$port\"}[5m])",
+          "expr": "irate(node_disk_reads_completed_total{job=\"node-exporter\",instance=~\"$node:$port\",device=\"$dm\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{device}}",
+          "legendFormat": "{{$pvc}} - {{$node}} - {{$dm}}",
           "refId": "B",
           "step": 4,
           "target": ""
@@ -337,6 +353,7 @@
       "datasource": "${DS_PROMETHEUS}",
       "decimals": 0,
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 5,
         "w": 24,
@@ -351,7 +368,7 @@
         "hideZero": false,
         "max": true,
         "min": false,
-        "rightSide": true,
+        "rightSide": false,
         "show": true,
         "sideWidth": 250,
         "total": false,
@@ -361,7 +378,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
       "pointradius": 1,
       "points": false,
@@ -372,10 +391,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "irate(node_disk_writes_completed_total{job=\"node_exporter\",instance=~\"$node:$port\"}[5m])",
+          "expr": "irate(node_disk_writes_completed_total{job=\"node-exporter\",instance=~\"$node:$port\",device=\"$dm\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{device}}",
+          "legendFormat": "{{$pvc}} - {{$node}} - {{$dm}}",
           "refId": "B",
           "step": 4,
           "target": ""
@@ -430,6 +449,7 @@
       "datasource": "${DS_PROMETHEUS}",
       "decimals": 1,
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 5,
         "w": 24,
@@ -444,7 +464,7 @@
         "hideZero": false,
         "max": true,
         "min": false,
-        "rightSide": true,
+        "rightSide": false,
         "show": true,
         "sideWidth": 250,
         "total": false,
@@ -454,7 +474,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
       "pointradius": 1,
       "points": false,
@@ -465,10 +487,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "irate(node_disk_read_time_seconds_total{job=\"node_exporter\",instance=~\"$node:$port\"}[5m])",
+          "expr": "irate(node_disk_read_time_seconds_total{job=\"node-exporter\",instance=~\"$node:$port\",device=\"$dm\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{device}}",
+          "legendFormat": "{{$pvc}} - {{$node}} - {{$dm}}",
           "refId": "B",
           "step": 4,
           "target": ""
@@ -523,6 +545,7 @@
       "datasource": "${DS_PROMETHEUS}",
       "decimals": 1,
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 5,
         "w": 24,
@@ -537,7 +560,7 @@
         "hideZero": false,
         "max": true,
         "min": false,
-        "rightSide": true,
+        "rightSide": false,
         "show": true,
         "sideWidth": 250,
         "total": false,
@@ -547,7 +570,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
       "pointradius": 1,
       "points": false,
@@ -558,10 +583,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "irate(node_disk_write_time_seconds_total{job=\"node_exporter\",instance=~\"$node:$port\"}[5m])",
+          "expr": "irate(node_disk_write_time_seconds_total{job=\"node-exporter\",instance=~\"$node:$port\",device=\"$dm\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{device}}",
+          "legendFormat": "{{$pvc}} - {{$node}} - {{$dm}}",
           "refId": "B",
           "step": 4,
           "target": ""
@@ -616,6 +641,7 @@
       "datasource": "${DS_PROMETHEUS}",
       "decimals": 1,
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 5,
         "w": 24,
@@ -630,7 +656,7 @@
         "hideZero": false,
         "max": true,
         "min": false,
-        "rightSide": true,
+        "rightSide": false,
         "show": true,
         "sideWidth": 250,
         "total": false,
@@ -640,7 +666,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
       "pointradius": 1,
       "points": false,
@@ -651,10 +679,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "irate(node_disk_reads_merged_total{job=\"node_exporter\",instance=~\"$node:$port\"}[5m])",
+          "expr": "irate(node_disk_reads_merged_total{job=\"node-exporter\",instance=~\"$node:$port\",device=\"$dm\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{device}}",
+          "legendFormat": "{{$pvc}} - {{$node}} - {{$dm}}",
           "refId": "B",
           "step": 4,
           "target": ""
@@ -709,6 +737,7 @@
       "datasource": "${DS_PROMETHEUS}",
       "decimals": 1,
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 5,
         "w": 24,
@@ -723,7 +752,7 @@
         "hideZero": false,
         "max": true,
         "min": false,
-        "rightSide": true,
+        "rightSide": false,
         "show": true,
         "sideWidth": 250,
         "total": false,
@@ -733,7 +762,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
       "pointradius": 1,
       "points": false,
@@ -744,10 +775,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "irate(node_disk_writes_merged_total{job=\"node_exporter\",instance=~\"$node:$port\"}[5m])",
+          "expr": "irate(node_disk_writes_merged_total{job=\"node-exporter\",instance=~\"$node:$port\",device=\"$dm\"}[5m])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{device}}",
+          "legendFormat": "{{$pvc}} - {{$node}} - {{$dm}}",
           "refId": "B",
           "step": 4,
           "target": ""
@@ -796,7 +827,7 @@
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 18,
+  "schemaVersion": 19,
   "style": "dark",
   "tags": [
     "prometheus",
@@ -809,18 +840,18 @@
         "allValue": null,
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
-        "definition": "",
+        "definition": "label_values(pvc_namespace_map, exported_namespace)",
         "hide": 0,
         "includeAll": false,
-        "label": null,
+        "label": "namespace",
         "multi": false,
-        "name": "node",
+        "name": "namespace",
         "options": [],
-        "query": "label_values(node_cpu_seconds_total{job=\"node_exporter\"}, instance)",
+        "query": "label_values(pvc_namespace_map, exported_namespace)",
         "refresh": 1,
-        "regex": "/([^:]+):.*/",
+        "regex": "",
         "skipUrlSync": false,
-        "sort": 1,
+        "sort": 0,
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
@@ -831,16 +862,16 @@
         "allValue": null,
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
-        "definition": "",
-        "hide": 2,
+        "definition": "label_values(pvc_namespace_map{exported_namespace=\"$namespace\"}, pvc)",
+        "hide": 0,
         "includeAll": false,
-        "label": null,
+        "label": "pvc",
         "multi": false,
-        "name": "port",
+        "name": "pvc",
         "options": [],
-        "query": "label_values(node_cpu_seconds_total, instance)",
+        "query": "label_values(pvc_namespace_map{exported_namespace=\"$namespace\"}, pvc)",
         "refresh": 1,
-        "regex": "/[^:]+:(.*)/",
+        "regex": "",
         "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "",
@@ -848,6 +879,90 @@
         "tagsQuery": "",
         "type": "query",
         "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
+        "definition": "label_values(pvc_namespace_map{exported_namespace=\"$namespace\", pvc=\"$pvc\"}, pv)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "pv",
+        "multi": false,
+        "name": "pv",
+        "options": [],
+        "query": "label_values(pvc_namespace_map{exported_namespace=\"$namespace\", pvc=\"$pvc\"}, pv)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
+        "definition": "label_values(device_map{pv=\"$pv\"}, dm)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "dm",
+        "multi": false,
+        "name": "dm",
+        "options": [],
+        "query": "label_values(device_map{pv=\"$pv\"}, dm)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
+        "definition": "label_values(device_map{pv=\"$pv\", dm=\"$dm\"}, node)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "node",
+        "multi": false,
+        "name": "node",
+        "options": [],
+        "query": "label_values(device_map{pv=\"$pv\", dm=\"$dm\"}, node)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "current": {
+          "value": "${VAR_PORT}",
+          "text": "${VAR_PORT}"
+        },
+        "hide": 2,
+        "label": "port",
+        "name": "port",
+        "options": [
+          {
+            "value": "${VAR_PORT}",
+            "text": "${VAR_PORT}"
+          }
+        ],
+        "query": "${VAR_PORT}",
+        "skipUrlSync": false,
+        "type": "constant"
       }
     ]
   },
@@ -876,7 +991,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "OCS - Disks",
-  "uid": "000000006",
-  "version": 2
+  "title": "OCS - Disks - Block Devices",
+  "uid": "000000005",
+  "version": 11
 }
